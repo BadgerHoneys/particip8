@@ -16,6 +16,10 @@
 !/log/.keep
 /tmp
 
+
 shared/
+
 Gemfile.lock
+
 /config/database.yml
+/config/environment.rb
