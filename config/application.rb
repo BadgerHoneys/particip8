@@ -22,5 +22,8 @@ module Particip8
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # gem 'rails-api' will do a reduction against our middleware stack...this prohibits that
+    config.api_only = false
   end
 end
