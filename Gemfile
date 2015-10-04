@@ -28,6 +28,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # the rails api gem
 gem 'rails-api'
+gem 'pry'
 
 gem 'mysql2', '~> 0.3.18'
 
