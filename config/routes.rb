@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  resources :ratings, except: [:new, :edit]
+  resources :evaluations, except: [:new, :edit]
+  resources :evaluation_templates, except: [:new, :edit]
+  resources :rating_types, except: [:new, :edit]
+  resources :evaluation_types, except: [:new, :edit]
+  resources :school_classes, except: [:new, :edit]
+  resources :teachers, except: [:new, :edit]
+  resources :students, except: [:new, :edit]
+  resources :schools, except: [:new, :edit]
+  resources :districts, except: [:new, :edit]
   resources :users, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
