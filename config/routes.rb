@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :evaluations, except: [:new, :edit]
   resources :evaluation_templates, except: [:new, :edit]
   resources :rating_types, except: [:new, :edit]
   resources :evaluation_types, except: [:new, :edit]
