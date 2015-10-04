@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :evaluation_types, except: [:new, :edit]
   resources :school_classes, except: [:new, :edit]
   resources :teachers, except: [:new, :edit]
   resources :students, except: [:new, :edit]
