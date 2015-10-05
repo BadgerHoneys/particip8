@@ -21,3 +21,5 @@ load 'db/seeds/schools' #depends on districts
 load 'db/seeds/evaluation_templates' #depends on school_class, rating_type, and evaluation_type
 load 'db/seeds/evaluations' #depends on evaluations template
 load 'db/seeds/ratings' #depends on evaluation and student
+load 'db/seeds/school_classes' #depends on school and teacher
+load 'db/seeds/students' #depends on school
