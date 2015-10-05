@@ -15,3 +15,4 @@ load 'db/seeds/districts.rb'
 
 #Depends
 load 'db/seeds/schools' #depends on districts
+load 'db/seeds/evaluation_templates' #depends on school_class, rating_type, and evaluation_type
