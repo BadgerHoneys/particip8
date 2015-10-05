@@ -36,6 +36,9 @@ gem 'mysql2', '~> 0.3.18'
 gem 'figaro'
 gem 'puma'
 
+#redis client
+gem 'redis', '2.1.1'
+
 group :development do
   gem 'capistrano'
   gem 'capistrano3-puma'

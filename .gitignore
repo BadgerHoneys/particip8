@@ -24,4 +24,7 @@ Gemfile.lock
 /config/database.yml
 /config/environment.rb
 
+#the redis initializer containing host ip
+/config/initializers/redis.rb
+
 .idea/
