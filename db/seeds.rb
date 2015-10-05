@@ -12,6 +12,7 @@ User.create(first_name: "Zach", last_name: "Downs", email: "zxd4321@rit.edu")
 
 #No depends
 load 'db/seeds/districts.rb'
+load 'db/seeds/evaluation_types'
 
 #Depends
 load 'db/seeds/schools' #depends on districts
