@@ -1,5 +1,6 @@
 class SchoolClassesController < ApplicationController
   before_action :set_school_class, only: [:show, :update, :destroy]
+  before_action :set_school_id_class, only: [:evaluation_templates]
 
   # GET /school_classes
   # GET /school_classes.json
@@ -47,10 +48,18 @@ class SchoolClassesController < ApplicationController
     head :no_content
   end
 
+  def evaluation_templates
+    render json: @school_class.evaluation_templates
+  end
+
   private
 
     def set_school_class
       @school_class = SchoolClass.find(params[:id])
+    end
+
+    def set_school_id_class
+      @school_class = SchoolClass.find(params[:school_class_id])
     end
 
     def school_class_params
