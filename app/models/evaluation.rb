@@ -9,6 +9,6 @@ class Evaluation < ActiveRecord::Base
     evaluation_template.school_class.students.each do |student|
       ratings.push(self.ratings.build(student_id: student, rating_value: "100"))
     end
-    ratings
+    #something redis sends info
   end
 end
