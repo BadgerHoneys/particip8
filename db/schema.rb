@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004210258) do
+ActiveRecord::Schema.define(version: 20151011235035) do
 
   create_table "districts", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 20151004210258) do
 
   add_index "school_classes", ["school_id"], name: "index_school_classes_on_school_id", using: :btree
   add_index "school_classes", ["teacher_id"], name: "index_school_classes_on_teacher_id", using: :btree
+
+  create_table "school_classes_students", id: false, force: :cascade do |t|
+    t.integer "school_class_id", limit: 4, null: false
+    t.integer "student_id",      limit: 4, null: false
+  end
+
+  add_index "school_classes_students", ["school_class_id", "student_id"], name: "index_school_classes_students_on_school_class_id_and_student_id", using: :btree
+  add_index "school_classes_students", ["student_id", "school_class_id"], name: "index_school_classes_students_on_student_id_and_school_class_id", using: :btree
 
   create_table "schools", force: :cascade do |t|
     t.string   "name",        limit: 255
