@@ -6,8 +6,11 @@ Rails.application.routes.draw do
   resources :evaluation_types, except: [:new, :edit]
   resources :school_classes, except: [:new, :edit] do
     get 'evaluation_templates'
+    get 'students'
   end
-  resources :teachers, except: [:new, :edit]
+  resources :teachers, except: [:new, :edit] do
+    get 'classes'
+  end
   resources :students, except: [:new, :edit]
   resources :schools, except: [:new, :edit]
   resources :districts, except: [:new, :edit]

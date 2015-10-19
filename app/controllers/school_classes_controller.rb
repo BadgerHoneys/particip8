@@ -1,6 +1,6 @@
 class SchoolClassesController < ApplicationController
   before_action :set_school_class, only: [:show, :update, :destroy]
-  before_action :set_school_id_class, only: [:evaluation_templates]
+  before_action :set_school_id_class, only: [:evaluation_templates, :students]
 
   # GET /school_classes
   # GET /school_classes.json
@@ -50,6 +50,10 @@ class SchoolClassesController < ApplicationController
 
   def evaluation_templates
     render json: @school_class.evaluation_templates
+  end
+
+  def students
+    render json: @school_class.students
   end
 
   private

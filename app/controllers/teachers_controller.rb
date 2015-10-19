@@ -1,5 +1,6 @@
 class TeachersController < ApplicationController
   before_action :set_teacher, only: [:show, :update, :destroy]
+  before_action :set_teacher_id_class, only: [:classes]
 
   # GET /teachers
   # GET /teachers.json
@@ -47,10 +48,18 @@ class TeachersController < ApplicationController
     head :no_content
   end
 
+  def classes
+    render json: @teacher.school_classes
+  end
+
   private
 
     def set_teacher
       @teacher = Teacher.find(params[:id])
+    end
+
+    def set_teacher_id_class
+      @teacher = Teacher.find(params[:teacher_id])
     end
 
     def teacher_params
