@@ -1,4 +1,4 @@
-class CreateJoinTableSchoolClassesStudents < ActiveRecord::Migration
+class JoinTableSchoolClassesStudents < ActiveRecord::Migration
   def change
     create_join_table :school_classes, :students do |t|
       t.index [:school_class_id, :student_id]
