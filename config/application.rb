@@ -26,5 +26,12 @@ module Particip8
     # rails-api gem will disable certain rails middleware
     # blocking the disabling for now - use all default middleware and remove unnecessary pieces later on
     config.api_only = false
+
+    config.middleware.insert_before 0, "Rack::Cors" do 
+        allow do
+            origins '*'
+            resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
+        end
+    end
   end
 end
