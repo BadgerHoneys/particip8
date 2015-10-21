@@ -29,6 +29,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # the rails api gem
 gem 'rails-api'
 gem 'pry'
+gem 'rack-cors', :require => 'rack/cors'
 
 gem 'mysql2', '~> 0.3.18'
 
