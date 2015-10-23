@@ -60,12 +60,12 @@ class UsersController < ApplicationController
 
     @user = User.find_by_email(email)
 
-    #return the user as json unless
-    unless @user.password == password
-      @user = nil
+    if @user.password.eql? password
+      render json: @user
+    else
+      #TODO: need to render 404 for client
+      render :status => 404
     end
-
-    render json: @user
   end
 
 
