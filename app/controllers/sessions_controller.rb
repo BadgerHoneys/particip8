@@ -1,6 +1,9 @@
 class SessionsController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
 
+  #do not invoke the authenticate_request method before session creation.
+  skip_before_action :authenticate_request
+
   # POST /sessions
   # POST /sessions.json
   def create
@@ -9,8 +12,7 @@ class SessionsController < ApplicationController
 
     #TODO: redo this authentication method
     if user && (user.password.eql? password)
-      #set the session_id
-      session[:user_id] = user.id
+      render json: { auth_token: user.generate_auth_token }
     else
       #401 status will indicate lack of authentication
       render :nothing => true, status: 401
