@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20151011235035) do
 
   create_table "ratings", force: :cascade do |t|
     t.integer  "evaluation_id", limit: 4
-    t.string   "rating_value",  limit: 255
+    t.string   "",  limit: 255
     t.integer  "student_id",    limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
