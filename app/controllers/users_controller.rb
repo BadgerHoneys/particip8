@@ -52,6 +52,23 @@ class UsersController < ApplicationController
     head :no_content
   end
 
+  # GET /users/authenticate
+  def authenticate
+
+    email = params["email"]
+    password = params["password"]
+
+    @user = User.find_by_email(email)
+
+    #return the user as json unless
+    unless @user.password == password
+      @user = nil
+    end
+
+    render json: @user
+  end
+
+
   private
 
     def set_user
