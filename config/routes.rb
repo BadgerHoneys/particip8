@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   resources :schools, except: [:new, :edit]
   resources :districts, except: [:new, :edit]
   resources :users, except: [:new, :edit]
+
+  resources :sessions, except: [:new, :edit]
+
+  post 'users/authenticate' => 'users#authenticate'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151011235035) do
+ActiveRecord::Schema.define(version: 20151023004243) do
 
   create_table "districts", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20151011235035) do
     t.integer "student_id",      limit: 4, null: false
   end
 
-  add_index "school_classes_students", ["school_class_id", "student_id"], name: "classes_students", using: :btree
-  add_index "school_classes_students", ["student_id", "school_class_id"], name: "students_classes", using: :btree
+  add_index "school_classes_students", ["school_class_id", "student_id"], name: "index_school_classes_students_on_school_class_id_and_student_id", using: :btree
+  add_index "school_classes_students", ["student_id", "school_class_id"], name: "index_school_classes_students_on_student_id_and_school_class_id", using: :btree
 
   create_table "schools", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20151011235035) do
     t.string   "email",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "password",   limit: 255
   end
 
   add_foreign_key "evaluation_templates", "evaluation_types"

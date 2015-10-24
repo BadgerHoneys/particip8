@@ -52,6 +52,23 @@ class UsersController < ApplicationController
     head :no_content
   end
 
+  # GET /users/authenticate
+  def authenticate
+
+    email = params["email"]
+    password = params["password"]
+
+    @user = User.find_by_email(email)
+
+    if @user.password.eql? password
+      render json: @user
+    else
+      #TODO: need to render 404 for client
+      render :status => 404
+    end
+  end
+
+
   private
 
     def set_user

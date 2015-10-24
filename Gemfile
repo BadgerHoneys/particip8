@@ -40,6 +40,9 @@ gem 'puma'
 #redis client
 gem 'redis', '2.1.1'
 
+#JWT (Javascript Web Tokens)
+gem 'jwt'
+
 group :development do
   gem 'capistrano'
   gem 'capistrano3-puma'
