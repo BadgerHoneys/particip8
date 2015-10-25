@@ -18,6 +18,7 @@ class EvaluationTemplatesController < ApplicationController
   # POST /evaluation_templates
   # POST /evaluation_templates.json
   def create
+
     @evaluation_template = EvaluationTemplate.new(evaluation_template_params)
 
     if @evaluation_template.save
@@ -54,6 +55,6 @@ class EvaluationTemplatesController < ApplicationController
     end
 
     def evaluation_template_params
-      params.require(:evaluation_template).permit(:name, :school_class_id, :rating_type_id, :evaluation_type_id)
+      params.permit(:name, :school_class_id, :rating_type_id, :evaluation_type_id)
     end
 end
