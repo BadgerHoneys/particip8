@@ -5,7 +5,16 @@ class SchoolClassesController < ApplicationController
   # GET /school_classes
   # GET /school_classes.json
   def index
-    @school_classes = SchoolClass.all
+    
+    #if the user is a teacher, return all of their school classes
+    if @current_user.is_teacher?
+      @school_classes = @current_user.school_classes
+    end
+
+    #example of other cases
+    #if @current_user.is_principal?
+      #school_classes = SchoolClasses.all
+    #end
 
     render json: @school_classes
   end
@@ -13,7 +22,7 @@ class SchoolClassesController < ApplicationController
   # GET /school_classes/1
   # GET /school_classes/1.json
   def show
-    render json: @school_class
+    render json: @school_class, include: [:evaluation_templates, :students]
   end
 
   # POST /school_classes
