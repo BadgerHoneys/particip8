@@ -10,6 +10,8 @@ class CreateSchoolClasses < ActiveRecord::Migration
       t.timestamps null: false
     end
     add_foreign_key :school_classes, :schools
-    add_foreign_key :school_classes, :teachers
+    
+    #need to have foreign key to users / teachers
+    #add_foreign_key :school_classes, :teachers
   end
 end

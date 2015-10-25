@@ -6,15 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create(first_name: "Josh", last_name: "Woodward", email: "josh.woodward2693@gmail.com")
-User.create(first_name: "Paul", last_name: "Darragh", email: "pmd1234@rit.edu")
-User.create(first_name: "Zach", last_name: "Downs", email: "zxd4321@rit.edu")
-
 #No depends
 load 'db/seeds/districts.rb'
 load 'db/seeds/evaluation_types.rb'
 load 'db/seeds/rating_types.rb'
-load 'db/seeds/users.rb'
 
 #Depends
 load 'db/seeds/schools.rb' #depends on districts

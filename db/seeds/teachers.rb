@@ -1,36 +1,35 @@
 teachers = [
     {
-        name: 'Jim Kelly',
-        email: 'j@kelly.com',
+        first_name: "Josh", 
+        last_name: "Woodward",
+        email: "josh@josh.com",
         school_id: 1,
-        password: 'topsecret'
+        password: "josh"
     },
     {
-        name: 'Tina Antiaq',
-        email: 't@antiaq',
+        first_name: "Zack", 
+        last_name: "Downs",
+        email: "zack@zack.com",
         school_id: 1,
-        password: 'topsecret'
+        password: "zack"
     },
     {
-        name: 'Jenny Smith',
-        email: 'j@smith.com',
+        first_name: "Paul", 
+        last_name: "Darragh",
+        email: "paul@paul.com",
         school_id: 1,
-        password: 'topsecret'
+        password: "paul"
     },
     {
-        name: 'Elizabeth Norberg',
-        email: 'e@norberg',
+        first_name: "Gerry",
+        last_name: "Thornberg",
+        email: "g@thornberg",
         school_id: 1,
-        password: 'topsecret'
+        password: "topsecret"
     },
     {
-        name: 'Gerry Thornberg',
-        email: 'g@thornberg',
-        school_id: 1,
-        password: 'topsecret'
-    },
-    {
-        name: 'Michelle Grant',
+        first_name: "Michelle",
+        last_name: "Grant",
         email: 'm@grant.com',
         school_id: 1,
         password: 'topsecret'
