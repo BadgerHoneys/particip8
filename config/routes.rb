@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :evaluations, except: [:new, :edit]
   resources :evaluation_templates, except: [:new, :edit]
   resources :rating_types, except: [:new, :edit]
-  resources :evaluation_types, except: [:new, :edit]
+  resources :evaluation_types, except: [:new]
   resources :school_classes, except: [:new, :edit] do
     get 'evaluation_templates'
     get 'students'

@@ -18,7 +18,6 @@ class EvaluationTemplatesController < ApplicationController
   # POST /evaluation_templates
   # POST /evaluation_templates.json
   def create
-
     @evaluation_template = EvaluationTemplate.new(evaluation_template_params)
 
     if @evaluation_template.save
