@@ -47,6 +47,18 @@ class EvaluationsController < ApplicationController
     head :no_content
   end
 
+
+
+  # POST /evaluations/:evaluation_id/add_rating
+  # POST /evaluations/:evaluation_id/add_rating.json
+  def add_rating
+
+    binding.pry
+
+    head :no_content
+  end
+
+
   private
 
     def set_evaluation
