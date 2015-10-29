@@ -54,6 +54,6 @@ class EvaluationTemplatesController < ApplicationController
     end
 
     def evaluation_template_params
-      params.permit(:name, :school_class_id, :rating_type_id, :evaluation_type_id)
+      params.permit(:name, :school_class_id, :rating_type_id)
     end
 end

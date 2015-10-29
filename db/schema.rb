@@ -20,23 +20,15 @@ ActiveRecord::Schema.define(version: 20151011235035) do
   end
 
   create_table "evaluation_templates", force: :cascade do |t|
-    t.string   "name",               limit: 255
-    t.integer  "school_class_id",    limit: 4
-    t.integer  "rating_type_id",     limit: 4
-    t.integer  "evaluation_type_id", limit: 4
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.string   "name",            limit: 255
+    t.integer  "school_class_id", limit: 4
+    t.integer  "rating_type_id",  limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
-  add_index "evaluation_templates", ["evaluation_type_id"], name: "index_evaluation_templates_on_evaluation_type_id", using: :btree
   add_index "evaluation_templates", ["rating_type_id"], name: "index_evaluation_templates_on_rating_type_id", using: :btree
   add_index "evaluation_templates", ["school_class_id"], name: "index_evaluation_templates_on_school_class_id", using: :btree
-
-  create_table "evaluation_types", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
 
   create_table "evaluations", force: :cascade do |t|
     t.integer  "evaluation_template_id", limit: 4
@@ -117,7 +109,6 @@ ActiveRecord::Schema.define(version: 20151011235035) do
 
   add_index "users", ["school_id"], name: "index_users_on_school_id", using: :btree
 
-  add_foreign_key "evaluation_templates", "evaluation_types"
   add_foreign_key "evaluation_templates", "rating_types"
   add_foreign_key "evaluation_templates", "school_classes"
   add_foreign_key "evaluations", "evaluation_templates"
