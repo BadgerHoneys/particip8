@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :ratings, except: [:new, :edit]
   resources :evaluations, except: [:new, :edit] do
     post 'add_rating'
+    post 'complete'
   end
 
   resources :evaluation_templates, except: [:new, :edit]

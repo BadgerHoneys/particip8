@@ -42,6 +42,7 @@ gem 'redis', '2.1.1'
 
 #JWT (Javascript Web Tokens)
 gem 'jwt'
+gem 'json'
 
 group :development do
   gem 'capistrano'

@@ -48,14 +48,44 @@ class EvaluationsController < ApplicationController
   end
 
 
-
   # POST /evaluations/:evaluation_id/add_rating
   # POST /evaluations/:evaluation_id/add_rating.json
   def add_rating
+    
+    #the key into the redis array of ratings
+    evaluation_id = params[:evaluation_id]
+    student_id = params[:student_id]
+    rating_value = params[:rating_value]
 
-    binding.pry
+    #the rating that will be stored in redis
+    rating = {
+      "student_id": student_id,
+      "rating_value": rating_value
+    }
+
+    #add the rating to the set mapped to by the evaluation id
+    $redis.sadd("evaluation" + evaluation_id, student_id + ":" + rating_value)
 
     head :no_content
+  end
+
+  # POST /evaluations/:evaluation_id/complete
+  # POST /evaluations/:evaluation_id/complete.json
+  def complete
+
+    #the key into the redis array of ratings
+    evaluation_id = params[:evaluation_id]
+
+    #get the array of ratings from redis based on the evaluation id
+    ratings = $redis.smembers("evaluation" + evaluation_id)
+
+
+
+
+
+
+
+    binding.pry
   end
 
 
