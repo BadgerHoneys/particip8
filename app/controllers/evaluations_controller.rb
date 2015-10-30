@@ -76,16 +76,29 @@ class EvaluationsController < ApplicationController
     #the key into the redis array of ratings
     evaluation_id = params[:evaluation_id]
 
+    #get the evaluation
+    evaluation = Evaluation.find(params[:evaluation_id])
+
     #get the array of ratings from redis based on the evaluation id
     ratings = $redis.smembers("evaluation" + evaluation_id)
 
+    #ratings will be of the form ["student_id:ratingvalue",...]
+    #ex: ["1:excellent","2:good","3:okay","4:horrible"]
 
+    #iterate over all ratings
+    ratings.each do |rating_map|
 
+      rating = rating_map.split(":")
+      student_id = rating[0]
+      rating_value = rating[1]
 
+      evaluation.ratings.new(:student_id => student_id, :rating_value => rating_value)
+    end
 
-
-
-    binding.pry
+    if evaluation.save!
+      #clear the redis key if the evaluation has been saved
+      $redis.del("evaluation" + evaluation_id)
+    end
   end
 
 
@@ -98,4 +111,5 @@ class EvaluationsController < ApplicationController
     def evaluation_params
       params.require(:evaluation).permit(:evaluation_template_id)
     end
+
 end
