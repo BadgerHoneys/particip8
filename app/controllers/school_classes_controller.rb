@@ -16,7 +16,7 @@ class SchoolClassesController < ApplicationController
       #school_classes = SchoolClasses.all
     #end
 
-    render json: @school_classes
+    render json: @school_classes, include: [:evaluation_templates]
   end
 
   # GET /school_classes/1
