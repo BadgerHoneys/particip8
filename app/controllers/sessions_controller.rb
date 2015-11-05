@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     password = params[:password]
 
     #TODO: redo this authentication method
-    if user && (user.password.eql? password)
+    if user && user.match_password(password)
       render json: { auth_token: user.generate_auth_token }
     else
       #401 status will indicate lack of authentication

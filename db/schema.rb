@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151011235035) do
+ActiveRecord::Schema.define(version: 20151105011353) do
 
   create_table "districts", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20151011235035) do
     t.integer  "school_id",  limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "salt",       limit: 255
   end
 
   add_index "users", ["school_id"], name: "index_users_on_school_id", using: :btree
