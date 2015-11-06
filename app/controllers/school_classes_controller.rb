@@ -1,22 +1,11 @@
 class SchoolClassesController < ApplicationController
   before_action :set_school_class, only: [:show, :update, :destroy]
-  before_action :set_school_id_class, only: [:evaluation_templates, :students]
+  before_action :set_school_id_class, only: [:evaluation_templates, :students, :add_student]
 
   # GET /school_classes
   # GET /school_classes.json
   def index
-    
-    #if the user is a teacher, return all of their school classes
-    if @current_user.is_teacher?
-      @school_classes = @current_user.school_classes
-    end
-
-    #example of other cases
-    #if @current_user.is_principal?
-      #school_classes = SchoolClasses.all
-    #end
-
-    render json: @school_classes, include: [:evaluation_templates]
+    render json: @school_classes
   end
 
   # GET /school_classes/1
@@ -29,6 +18,8 @@ class SchoolClassesController < ApplicationController
   # POST /school_classes.json
   def create
     @school_class = SchoolClass.new(school_class_params)
+    user = User.find(params[:school_class][:user_id])
+    user.add_role :teacher, @school_class
 
     if @school_class.save
       render json: @school_class, status: :created, location: @school_class
@@ -53,7 +44,6 @@ class SchoolClassesController < ApplicationController
   # DELETE /school_classes/1.json
   def destroy
     @school_class.destroy
-
     head :no_content
   end
 
@@ -62,20 +52,26 @@ class SchoolClassesController < ApplicationController
   end
 
   def students
-    render json: @school_class.user
+    students = User.with_role :student, @school_class
+    render json: students
+  end
+
+  def add_student
+    student = User.find(params[:user_id])
+    student.add_role :student, @school_class
   end
 
   private
 
-    def set_school_class
-      @school_class = SchoolClass.find(params[:id])
-    end
+  def set_school_class
+    @school_class = SchoolClass.find(params[:id])
+  end
 
-    def set_school_id_class
-      @school_class = SchoolClass.find(params[:school_class_id])
-    end
+  def set_school_id_class
+    @school_class = SchoolClass.find(params[:school_class_id])
+  end
 
-    def school_class_params
-      params.require(:school_class).permit(:school_id, :user_id, :name, :start_time, :end_time)
-    end
+  def school_class_params
+    params.require(:school_class).permit(:school_id, :user_id, :name, :start_time, :end_time)
+  end
 end
