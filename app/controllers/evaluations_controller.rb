@@ -54,17 +54,17 @@ class EvaluationsController < ApplicationController
     
     #the key into the redis array of ratings
     evaluation_id = params[:evaluation_id]
-    student_id = params[:student_id]
+    user_id = params[:user_id]
     rating_value = params[:rating_value]
 
     #the rating that will be stored in redis
     rating = {
-      "student_id": student_id,
+      "user_id": user_id,
       "rating_value": rating_value
     }
 
     #add the rating to the set mapped to by the evaluation id
-    $redis.sadd("evaluation" + evaluation_id, student_id + ":" + rating_value)
+    $redis.sadd("evaluation" + evaluation_id, user_id + ":" + rating_value)
 
     head :no_content
   end
@@ -82,17 +82,17 @@ class EvaluationsController < ApplicationController
     #get the array of ratings from redis based on the evaluation id
     ratings = $redis.smembers("evaluation" + evaluation_id)
 
-    #ratings will be of the form ["student_id:ratingvalue",...]
+    #ratings will be of the form ["user_id:ratingvalue",...]
     #ex: ["1:excellent","2:good","3:okay","4:horrible"]
 
     #iterate over all ratings
     ratings.each do |rating_map|
 
       rating = rating_map.split(":")
-      student_id = rating[0]
+      user_id = rating[0]
       rating_value = rating[1]
 
-      evaluation.ratings.new(:student_id => student_id, :rating_value => rating_value)
+      evaluation.ratings.new(:user_id => user_id, :rating_value => rating_value)
     end
 
     if evaluation.save!

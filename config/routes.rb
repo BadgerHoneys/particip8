@@ -11,13 +11,11 @@ Rails.application.routes.draw do
     get 'evaluation_templates'
     get 'students'
   end
-  resources :teachers, except: [:new, :edit] do
-    get 'classes'
-  end
-  resources :students, except: [:new, :edit]
   resources :schools, except: [:new, :edit]
   resources :districts, except: [:new, :edit]
-  resources :users, except: [:new, :edit]
+  resources :users, except: [:new, :edit]do
+    get 'classes'
+  end
 
   resources :sessions, except: [:new, :edit]
 

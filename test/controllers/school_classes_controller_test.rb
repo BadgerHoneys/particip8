@@ -13,7 +13,7 @@ class SchoolClassesControllerTest < ActionController::TestCase
 
   test "should create school_class" do
     assert_difference('SchoolClass.count') do
-      post :create, school_class: { end_time: @school_class.end_time, name: @school_class.name, school_id: @school_class.school_id, start_time: @school_class.start_time, teacher_id: @school_class.teacher_id }
+      post :create, school_class: { end_time: @school_class.end_time, name: @school_class.name, school_id: @school_class.school_id, start_time: @school_class.start_time, user_id: @school_class.teacher_id }
     end
 
     assert_response 201
@@ -25,7 +25,7 @@ class SchoolClassesControllerTest < ActionController::TestCase
   end
 
   test "should update school_class" do
-    put :update, id: @school_class, school_class: { end_time: @school_class.end_time, name: @school_class.name, school_id: @school_class.school_id, start_time: @school_class.start_time, teacher_id: @school_class.teacher_id }
+    put :update, id: @school_class, school_class: { end_time: @school_class.end_time, name: @school_class.name, school_id: @school_class.school_id, start_time: @school_class.start_time, user_id: @school_class.teacher_id }
     assert_response 204
   end
 

@@ -2,7 +2,7 @@ class CreateSchoolClasses < ActiveRecord::Migration
   def change
     create_table :school_classes do |t|
       t.belongs_to :school, index: true
-      t.belongs_to :teacher, index: true
+      t.belongs_to :user, index: true
       t.string :name
       t.time :start_time
       t.time :end_time

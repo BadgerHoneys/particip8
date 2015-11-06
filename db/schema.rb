@@ -48,17 +48,17 @@ ActiveRecord::Schema.define(version: 20151105011353) do
   create_table "ratings", force: :cascade do |t|
     t.integer  "evaluation_id", limit: 4
     t.string   "rating_value",  limit: 255
-    t.integer  "student_id",    limit: 4
+    t.integer  "user_id",       limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
 
   add_index "ratings", ["evaluation_id"], name: "index_ratings_on_evaluation_id", using: :btree
-  add_index "ratings", ["student_id"], name: "index_ratings_on_student_id", using: :btree
+  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
   create_table "school_classes", force: :cascade do |t|
     t.integer  "school_id",  limit: 4
-    t.integer  "teacher_id", limit: 4
+    t.integer  "user_id",    limit: 4
     t.string   "name",       limit: 255
     t.time     "start_time"
     t.time     "end_time"
@@ -67,15 +67,7 @@ ActiveRecord::Schema.define(version: 20151105011353) do
   end
 
   add_index "school_classes", ["school_id"], name: "index_school_classes_on_school_id", using: :btree
-  add_index "school_classes", ["teacher_id"], name: "index_school_classes_on_teacher_id", using: :btree
-
-  create_table "school_classes_students", id: false, force: :cascade do |t|
-    t.integer "school_class_id", limit: 4, null: false
-    t.integer "student_id",      limit: 4, null: false
-  end
-
-  add_index "school_classes_students", ["school_class_id", "student_id"], name: "classes_students", using: :btree
-  add_index "school_classes_students", ["student_id", "school_class_id"], name: "students_classes", using: :btree
+  add_index "school_classes", ["user_id"], name: "index_school_classes_on_user_id", using: :btree
 
   create_table "schools", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -85,16 +77,6 @@ ActiveRecord::Schema.define(version: 20151105011353) do
   end
 
   add_index "schools", ["district_id"], name: "index_schools_on_district_id", using: :btree
-
-  create_table "students", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "email",      limit: 255
-    t.integer  "school_id",  limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  add_index "students", ["school_id"], name: "index_students_on_school_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "type",       limit: 255
@@ -114,8 +96,7 @@ ActiveRecord::Schema.define(version: 20151105011353) do
   add_foreign_key "evaluation_templates", "school_classes"
   add_foreign_key "evaluations", "evaluation_templates"
   add_foreign_key "ratings", "evaluations"
-  add_foreign_key "ratings", "students"
+  add_foreign_key "ratings", "users"
   add_foreign_key "school_classes", "schools"
   add_foreign_key "schools", "districts"
-  add_foreign_key "students", "schools"
 end

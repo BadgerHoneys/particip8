@@ -36,5 +36,4 @@ teachers = [
     }
 ]
 
-Teacher.delete_all
-Teacher.create!(teachers)
+User.create!(teachers)

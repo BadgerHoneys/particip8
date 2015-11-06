@@ -13,7 +13,7 @@ class RatingsControllerTest < ActionController::TestCase
 
   test "should create rating" do
     assert_difference('Rating.count') do
-      post :create, rating: { evaluation_id: @rating.evaluation_id, rating_value: @rating.rating_value, student_id: @rating.student_id }
+      post :create, rating: { evaluation_id: @rating.evaluation_id, rating_value: @rating.rating_value, user_id: @rating.user_id }
     end
 
     assert_response 201
@@ -25,7 +25,7 @@ class RatingsControllerTest < ActionController::TestCase
   end
 
   test "should update rating" do
-    put :update, id: @rating, rating: { evaluation_id: @rating.evaluation_id, rating_value: @rating.rating_value, student_id: @rating.student_id }
+    put :update, id: @rating, rating: { evaluation_id: @rating.evaluation_id, rating_value: @rating.rating_value, user_id: @rating.user_id }
     assert_response 204
   end
 

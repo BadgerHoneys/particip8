@@ -1,30 +1,30 @@
 students = [
     {
-        name: 'Jeffery Thomas',
+        first_name: 'Jeffery Thomas',
         email: 'j@thomas.com',
         school_id: 1
     },
     {
-        name: 'Ron Sick',
+        first_name: 'Ron Sick',
         email: 'r@sick.com',
         school_id: 1
     },
     {
-        name: 'Gary Proud',
+        first_name: 'Gary Proud',
         email: 'g@proud.com',
         school_id: 1
     },
     {
-        name: 'Bob Mitchell',
+        first_name: 'Bob Mitchell',
         email: 'b@mitchell.com',
         school_id: 1
     },
     {
-        name: 'Tim Smith',
+        first_name: 'Tim Smith',
         email: 't@smith.com',
         school_id: 1
     },
 ]
 
-Student.delete_all
-Student.create!(students)
+User.delete_all
+User.create!(students)

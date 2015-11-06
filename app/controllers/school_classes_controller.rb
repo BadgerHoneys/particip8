@@ -62,7 +62,7 @@ class SchoolClassesController < ApplicationController
   end
 
   def students
-    render json: @school_class.students
+    render json: @school_class.user
   end
 
   private
@@ -76,6 +76,6 @@ class SchoolClassesController < ApplicationController
     end
 
     def school_class_params
-      params.require(:school_class).permit(:school_id, :teacher_id, :name, :start_time, :end_time)
+      params.require(:school_class).permit(:school_id, :user_id, :name, :start_time, :end_time)
     end
 end
