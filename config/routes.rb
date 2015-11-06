@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   resources :school_classes, except: [:new, :edit] do
     get 'evaluation_templates'
     get 'students'
+    get 'teacher'
     post 'add_student'
+    post 'add_teacher'
+    delete 'remove_student'
+    delete 'remove_teacher'
   end
   resources :schools, except: [:new, :edit]
   resources :districts, except: [:new, :edit]

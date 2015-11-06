@@ -1,6 +1,7 @@
 class SchoolClassesController < ApplicationController
   before_action :set_school_class, only: [:show, :update, :destroy]
-  before_action :set_school_id_class, only: [:evaluation_templates, :students, :add_student]
+  before_action :set_school_id_class, only: [:evaluation_templates, :students, :teacher, :add_student, :add_teacher,
+                                             :remove_teacher, :remove_student]
 
   # GET /school_classes
   # GET /school_classes.json
@@ -19,8 +20,6 @@ class SchoolClassesController < ApplicationController
   def create
     @school_class = SchoolClass.new(school_class_params)
     if @school_class.save
-      user = User.find(params[:school_class][:user_id])
-      user.add_role :teacher, @school_class
       render json: @school_class, status: :created, location: @school_class
     else
       render json: @school_class.errors, status: :unprocessable_entity
@@ -31,7 +30,6 @@ class SchoolClassesController < ApplicationController
   # PATCH/PUT /school_classes/1.json
   def update
     @school_class = SchoolClass.find(params[:id])
-
     if @school_class.update(school_class_params)
       head :no_content
     else
@@ -50,14 +48,40 @@ class SchoolClassesController < ApplicationController
     render json: @school_class.evaluation_templates
   end
 
+  #Get teacher for the class
+  def teacher
+    teacher = User.with_role :teacher, @school_class
+    render json: teacher
+  end
+
+  #Get students for the class
   def students
     students = User.with_role :student, @school_class
     render json: students
   end
 
+  #Post students to class
   def add_student
     student = User.find(params[:user_id])
     student.add_role :student, @school_class
+  end
+
+  #Post teacher to class
+  def add_teacher
+    teacher = User.find(params[:user_id])
+    teacher.add_role :teacher, @school_class
+  end
+
+  #Delete teacher from class
+  def remove_teacher
+    teacher = User.find(params[:user_id])
+    teacher.delete_role :teacher, @school_class
+  end
+
+  #Delete student from class
+  def remove_student
+    student = User.find(params[:user_id])
+    student.delete_role :student, @school_class
   end
 
   private
