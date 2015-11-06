@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify
   before_save :encrypt_password
 
   def encrypt_password

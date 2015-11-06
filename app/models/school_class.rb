@@ -1,4 +1,5 @@
 class SchoolClass < ActiveRecord::Base
+  resourcify
   belongs_to :school
   belongs_to :user
   has_many :users

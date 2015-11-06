@@ -36,6 +36,7 @@ gem 'mysql2', '~> 0.3.18'
 #application server 
 gem 'figaro'
 gem 'puma'
+gem "rolify"
 
 #redis client
 gem 'redis', '2.1.1'
