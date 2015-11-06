@@ -18,10 +18,9 @@ class SchoolClassesController < ApplicationController
   # POST /school_classes.json
   def create
     @school_class = SchoolClass.new(school_class_params)
-    user = User.find(params[:school_class][:user_id])
-    user.add_role :teacher, @school_class
-
     if @school_class.save
+      user = User.find(params[:school_class][:user_id])
+      user.add_role :teacher, @school_class
       render json: @school_class, status: :created, location: @school_class
     else
       render json: @school_class.errors, status: :unprocessable_entity
