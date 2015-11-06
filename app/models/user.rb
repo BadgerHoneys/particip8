@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   rolify
   before_save :encrypt_password
 
+  has_many :ratings
   has_many :attendances, through: :current_days
 
   def encrypt_password

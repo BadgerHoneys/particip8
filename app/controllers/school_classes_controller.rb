@@ -1,7 +1,7 @@
 class SchoolClassesController < ApplicationController
   before_action :set_school_class, only: [:show, :update, :destroy]
   before_action :set_school_id_class, only: [:evaluation_templates, :students, :teacher, :add_student, :add_teacher,
-                                             :remove_teacher, :remove_student]
+                                             :remove_teacher, :remove_student, :reports]
 
   # GET /school_classes
   # GET /school_classes.json
@@ -82,6 +82,38 @@ class SchoolClassesController < ApplicationController
   def remove_student
     student = User.find(params[:user_id])
     student.delete_role :student, @school_class
+  end
+
+  #Returns reports for the class
+  def reports
+    ratings = []
+    students = User.with_role :student, @school_class
+    if params[:time_line] == 'all'
+      students.each do |student|
+        student.ratings.each do |rating|
+          ratings.push(rating)
+        end
+      end
+    elsif params[:time_line] == 'month'
+      students.each do |student|
+        student.ratings.each do |rating|
+          ratings.push(rating) if rating.created_at.to_date > 1.month.ago
+        end
+      end
+    elsif params[:time_line] == 'week'
+      students.each do |student|
+        student.ratings.each do |rating|
+          ratings.push(rating) if rating.created_at.to_date > 1.week.ago
+        end
+      end
+    elsif params[:time_line] == 'day'
+      students.each do |student|
+        student.ratings.each do |rating|
+          ratings.push(rating) if rating.created_at.to_date == Date.current
+        end
+      end
+    end
+    render json: ratings
   end
 
   private

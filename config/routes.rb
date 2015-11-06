@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'evaluation_templates'
     get 'students'
     get 'teacher'
+    get 'reports'
     post 'add_student'
     post 'add_teacher'
     delete 'remove_student'
