@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   rolify
   before_save :encrypt_password
 
+  has_many :attendances, through: :current_days
+
   def encrypt_password
     if password.present?
       self.salt = BCrypt::Engine.generate_salt
