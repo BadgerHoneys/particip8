@@ -58,7 +58,6 @@ class SchoolClassesController < ApplicationController
   end
 
   def available
-    binding.pry
     @school_classes = @current_user.school.school_classes.reject{|school_class| school_class.teacher_id}
   end
 
