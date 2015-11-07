@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   end
 
 	def generate_auth_token
-	  payload = { user_id: self.id }
+	  payload = { user_id: self.id}
 	  AuthToken.encode(payload)
   end
 

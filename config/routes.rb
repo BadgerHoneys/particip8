@@ -9,10 +9,13 @@ Rails.application.routes.draw do
 
   resources :evaluation_templates, except: [:new, :edit]
   resources :rating_types, except: [:new, :edit]
+
+  get 'school_classes/available' => 'school_classes#available'
   resources :school_classes, except: [:new, :edit] do
     get 'evaluation_templates'
     get 'students'
   end
+
   resources :teachers, except: [:new, :edit] do
     get 'classes'
   end
