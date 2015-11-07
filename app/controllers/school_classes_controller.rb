@@ -1,6 +1,6 @@
 class SchoolClassesController < ApplicationController
   before_action :set_school_class, only: [:show, :update, :destroy]
-  before_action :set_school_id_class, only: [:evaluation_templates, :students]
+  before_action :set_school_id_class, only: [:evaluation_templates, :students, :reports]
 
   # GET /school_classes
   # GET /school_classes.json
@@ -65,6 +65,39 @@ class SchoolClassesController < ApplicationController
     render json: @school_class.students
   end
 
+  #Returns reports for the class
+  def reports
+    ratings = []
+    students = @school_class.students
+    if params[:time_line] == 'all'
+      students.each do |student|
+        student.ratings.each do |rating|
+          ratings.push(rating)
+        end
+      end
+    elsif params[:time_line] == 'month'
+      students.each do |student|
+        student.ratings.each do |rating|
+          ratings.push(rating) if rating.created_at.to_date > 1.month.ago
+        end
+      end
+    elsif params[:time_line] == 'week'
+      students.each do |student|
+        student.ratings.each do |rating|
+          ratings.push(rating) if rating.created_at.to_date > 1.week.ago
+        end
+      end
+    elsif params[:time_line] == 'day'
+      students.each do |student|
+        student.ratings.each do |rating|
+          ratings.push(rating) if rating.created_at.to_date == Date.current
+        end
+      end
+    end
+    render json: ratings
+  end
+
+
   private
 
     def set_school_class
@@ -78,4 +111,6 @@ class SchoolClassesController < ApplicationController
     def school_class_params
       params.require(:school_class).permit(:school_id, :teacher_id, :name, :start_time, :end_time)
     end
+
+
 end

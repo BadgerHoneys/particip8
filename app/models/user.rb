@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   before_save :encrypt_password
+  
+  has_many :attendances, through: :current_days
 
   def encrypt_password
     if password.present?
@@ -16,4 +18,5 @@ class User < ActiveRecord::Base
   def match_password(login_password="")
     password == BCrypt::Engine.hash_secret(login_password, salt)
   end
+
 end

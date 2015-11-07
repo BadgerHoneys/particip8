@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :attendances, except: [:new, :edit]
+  resources :current_days, except: [:new, :edit]
   resources :ratings, except: [:new, :edit]
   resources :evaluations, except: [:new, :edit] do
     post 'add_rating'
