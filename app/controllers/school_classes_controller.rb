@@ -1,6 +1,6 @@
 class SchoolClassesController < ApplicationController
   before_action :set_school_class, only: [:show, :update, :destroy]
-  before_action :set_school_id_class, only: [:evaluation_templates, :students, :reports]
+  before_action :set_school_id_class, only: [:evaluation_templates, :students, :reports, :add_teacher, :remove_teacher]
 
   # GET /school_classes
   # GET /school_classes.json
@@ -67,6 +67,28 @@ class SchoolClassesController < ApplicationController
 
   def students
     render json: @school_class.students
+  end
+
+  #adds the current teacher to the class
+  def set_teacher
+    @school_class.teacher = @current_user
+    
+    if @school_class.save
+      head :no_content
+    else
+      render json: @school_class.errors, status: :unprocessable_entity
+    end
+  end
+
+  #removes the teacher from the class
+  def remove_teacher
+    @school_class.teacher = nil
+
+    if @school_class.save
+      head :no_content
+    else
+      render json: @school_class.errors, status: :unprocessable_entity
+    end
   end
 
   #Returns reports for the class

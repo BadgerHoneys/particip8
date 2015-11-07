@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   resources :school_classes, except: [:new, :edit] do
     get 'evaluation_templates'
     get 'students'
+    patch 'set_teacher' => 'school_classes#set_teacher'
+    patch 'remove_teacher' => 'school_classes#remove_teacher'
   end
 
   resources :teachers, except: [:new, :edit] do
