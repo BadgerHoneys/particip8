@@ -49,10 +49,45 @@ school_classes = [
         end_time: Time.now
     },
     {
-        school_id: 4,
-        teacher_id: 2,
+        school_id: 1,
+        teacher_id: nil,
         name: 'Reading',
         start_time: Time.now - 2.hour,
+        end_time: Time.now
+    },
+    {
+        school_id:1,
+        teacher_id: nil,
+        name: 'Computer Science',
+        start_time: Time.now - 1.hour,
+        end_time: Time.now
+    },
+    {
+        school_id:1,
+        teacher_id: nil,
+        name: 'Art',
+        start_time: Time.now - 1.hour,
+        end_time: Time.now
+    },
+    {
+        school_id:1,
+        teacher_id: nil,
+        name: 'Design',
+        start_time: Time.now - 1.hour,
+        end_time: Time.now
+    },
+    {
+        school_id:1,
+        teacher_id: nil,
+        name: 'Ecology',
+        start_time: Time.now - 1.hour,
+        end_time: Time.now
+    },
+    {
+        school_id:1,
+        teacher_id: nil,
+        name: 'Statistics',
+        start_time: Time.now - 1.hour,
         end_time: Time.now
     },
 ]
