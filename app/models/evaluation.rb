@@ -11,14 +11,14 @@ class Evaluation < ActiveRecord::Base
     evaluation_template.school_class.current_days.reverse.each do |day|
       flag = true if day.created_at.to_date == Date.current
     end
-
+    flag
   end
 
   def attendance
     evaluation_template.school_class.current_days.reverse.each do |day|
       if day.created_at.to_date == Date.current
         day.attendances.each do |attendance|
-          Rating.create!(evaluation_id: id, rating_value: '100', user_id: attendance.user_id) if attendance.is_there
+          $redis.sadd("evaluation" + id, attendance.user_id + ":" + '100') if attendance.is_there
         end
         break
       end
