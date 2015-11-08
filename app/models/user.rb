@@ -24,6 +24,14 @@ class User < ActiveRecord::Base
   def delete_role(role_symbol,target=nil)
     UsersRoles.delete_role self,role_symbol,target
   end
+
+  def user_roles(role_name)
+    student_roles = []
+    roles.each do |role|
+      student_roles.push role if role.name == role_name
+    end
+    student_roles
+  end
 end
 
 class UsersRoles < ActiveRecord::Base

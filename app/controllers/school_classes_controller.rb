@@ -6,7 +6,7 @@ class SchoolClassesController < ApplicationController
   # GET /school_classes
   # GET /school_classes.json
   def index
-    render json: @school_classes
+    render json: @current_user.user_roles('teacher')
   end
 
   # GET /school_classes/1

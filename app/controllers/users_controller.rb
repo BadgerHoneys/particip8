@@ -70,19 +70,11 @@ class UsersController < ApplicationController
   end
 
   def teacher_classes
-    teacher_roles = []
-    @user.roles.each do |role|
-      teacher_roles.push role if role.name == 'teacher'
-    end
-    render json: teacher_roles
+    render json: @user.user_roles('teacher')
   end
 
   def student_classes
-    student_roles = []
-    @user.roles.each do |role|
-      student_roles.push role if role.name == 'teacher'
-    end
-    render json: student_roles
+    render json: @user.user_roles('student')
   end
 
 
