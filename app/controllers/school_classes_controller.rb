@@ -20,7 +20,7 @@ class SchoolClassesController < ApplicationController
   # GET /school_classes/1
   # GET /school_classes/1.json
   def show
-    render json: @school_class, include: [:evaluation_templates, :students]
+    render json: @school_class, :include => [:students, :evaluation_templates => {:include => {:rating_type => {:only => :scale}}}]
   end
 
   # POST /school_classes
