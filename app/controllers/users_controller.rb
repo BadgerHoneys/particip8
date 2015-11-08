@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user_id, only: [:teacher_classes, :student_classes]
 
   # GET /users
   # GET /users.json
@@ -68,11 +69,31 @@ class UsersController < ApplicationController
     end
   end
 
+  def teacher_classes
+    teacher_roles = []
+    @user.roles.each do |role|
+      teacher_roles.push role if role.name == 'teacher'
+    end
+    render json: teacher_roles
+  end
+
+  def student_classes
+    student_roles = []
+    @user.roles.each do |role|
+      student_roles.push role if role.name == 'teacher'
+    end
+    render json: student_roles
+  end
+
 
   private
 
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def set_user_id
+      @user = User.find(params[:user_id])
     end
 
     def user_params

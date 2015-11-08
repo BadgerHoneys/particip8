@@ -88,8 +88,7 @@ class SchoolClassesController < ApplicationController
   def reports
     ratings = []
     students = User.with_role :student, @school_class
-    if params[:time_line] == 'all'
-      students.each do |student|
+    if students.each do |student|
         student.ratings.each do |rating|
           ratings.push(rating)
         end
