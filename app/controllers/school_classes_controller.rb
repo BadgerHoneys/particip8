@@ -56,7 +56,8 @@ class SchoolClassesController < ApplicationController
   end
 
   def available
-    @school_classes = @current_user.school.school_classes.reject{|school_class| school_class.teacher_id}
+    render json: @school_classes = @current_user.school.school_classes.reject{|school_class| school_class.teacher_id}
+
   end
 
   def evaluation_templates
