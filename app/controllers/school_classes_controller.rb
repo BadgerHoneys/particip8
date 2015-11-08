@@ -1,15 +1,13 @@
 class SchoolClassesController < ApplicationController
   before_action :set_school_class, only: [:show, :update, :destroy]
-  before_action :set_school_id_class, only: [:evaluation_templates, :students, :reports, :add_teacher, :remove_teacher]
+  before_action :set_school_id_class, only: [:evaluation_templates, :students, :reports, :set_teacher, :remove_teacher]
 
   # GET /school_classes
   # GET /school_classes.json
   def index
     
-    #if the user is a teacher, return all of their school classes
-    if @current_user.is_teacher?
-      @school_classes = @current_user.school_classes
-    end
+    #returns 
+    @school_classes = @current_user.school_classes
 
     #example of other cases
     #if @current_user.is_principal?
