@@ -92,34 +92,96 @@ class SchoolClassesController < ApplicationController
 
   #Returns reports for the class
   def reports
-    ratings = []
+    
+    #get the evaluation templates for this class
+    evaluation_templates = @school_class.evaluation_templates
+
+    #get the students for this class
     students = @school_class.students
-    if params[:time_line] == 'all'
-      students.each do |student|
-        student.ratings.each do |rating|
-          ratings.push(rating)
-        end
-      end
-    elsif params[:time_line] == 'month'
-      students.each do |student|
-        student.ratings.each do |rating|
-          ratings.push(rating) if rating.created_at.to_date > 1.month.ago
-        end
-      end
-    elsif params[:time_line] == 'week'
-      students.each do |student|
-        student.ratings.each do |rating|
-          ratings.push(rating) if rating.created_at.to_date > 1.week.ago
-        end
-      end
-    elsif params[:time_line] == 'day'
-      students.each do |student|
-        student.ratings.each do |rating|
-          ratings.push(rating) if rating.created_at.to_date == Date.current
-        end
-      end
+
+    time_period = params[:time_period]
+
+
+    report_data = {}
+    report_data['evaluation_templates'] = evaluation_templates
+    report_data['student_records'] = {}
+
+    students.each do |student|
+
+      student_record = {}
+      student_record['name'] = student.name
+      student_record['ratings'] = {}
+
+      report_data['student_records'][student.id] = student_record
+
     end
-    render json: ratings
+
+
+
+
+    evaluation_templates.each do |template|
+
+      #select the relevant ratings based on the time period filter
+      case time_period
+      when "day"
+        ratings = template.ratings.where("ratings.created_at >= :created_date",
+          {created_date: Date.current})
+      when "week"
+        ratings = template.ratings.where("ratings.created_at >= :created_date",
+          {created_date: 1.week.ago})
+      when "month"
+        ratings = template.ratings.where("ratings.created_at >= :created_date",
+          {created_date: 1.month.ago})
+      else
+        ratings = template.ratings
+      end 
+
+      student_ratings = {}
+
+      ratings.each do |rating|
+        (student_ratings[rating.student_id] ||= []).push(rating.rating_value)
+      end
+
+      student_ratings.keys.each do |student_id|
+        values = student_ratings[student_id]
+        value = values.inject{|sum, el| sum.to_f + el.to_f}.to_f / values.size
+
+        report_data['student_records'][student_id]["ratings"][template.id] = value
+      end
+
+    end
+
+    binding.pry
+
+    # students = @school_class.students
+    # if params[:time_line] == 'all'
+    #   students.each do |student|
+    #     student.ratings.each do |rating|
+    #       ratings.push(rating)
+    #     end
+    #   end
+    # elsif params[:time_line] == 'month'
+    #   students.each do |student|
+    #     student.ratings.each do |rating|
+    #       ratings.push(rating) if rating.created_at.to_date > 1.month.ago
+    #     end
+    #   end
+    # elsif params[:time_line] == 'week'
+    #   students.each do |student|
+    #     student.ratings.each do |rating|
+    #       ratings.push(rating) if rating.created_at.to_date > 1.week.ago
+    #     end
+    #   end
+    # elsif params[:time_line] == 'day'
+    #   students.each do |student|
+    #     student.ratings.each do |rating|
+    #       ratings.push(rating) if rating.created_at.to_date == Date.current
+    #     end
+    #   end
+    # end
+    # render json: ratings
+
+
   end
 
 
