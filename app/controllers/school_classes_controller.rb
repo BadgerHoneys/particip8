@@ -116,9 +116,6 @@ class SchoolClassesController < ApplicationController
 
     end
 
-
-
-
     evaluation_templates.each do |template|
 
       #select the relevant ratings based on the time period filter
@@ -151,39 +148,8 @@ class SchoolClassesController < ApplicationController
 
     end
 
-    binding.pry
-
-    # students = @school_class.students
-    # if params[:time_line] == 'all'
-    #   students.each do |student|
-    #     student.ratings.each do |rating|
-    #       ratings.push(rating)
-    #     end
-    #   end
-    # elsif params[:time_line] == 'month'
-    #   students.each do |student|
-    #     student.ratings.each do |rating|
-    #       ratings.push(rating) if rating.created_at.to_date > 1.month.ago
-    #     end
-    #   end
-    # elsif params[:time_line] == 'week'
-    #   students.each do |student|
-    #     student.ratings.each do |rating|
-    #       ratings.push(rating) if rating.created_at.to_date > 1.week.ago
-    #     end
-    #   end
-    # elsif params[:time_line] == 'day'
-    #   students.each do |student|
-    #     student.ratings.each do |rating|
-    #       ratings.push(rating) if rating.created_at.to_date == Date.current
-    #     end
-    #   end
-    # end
-    # render json: ratings
-
-
+    render json: report_data
   end
-
 
   private
 
@@ -198,6 +164,4 @@ class SchoolClassesController < ApplicationController
     def school_class_params
       params.require(:school_class).permit(:school_id, :teacher_id, :name, :start_time, :end_time)
     end
-
-
 end
