@@ -143,9 +143,10 @@ class SchoolClassesController < ApplicationController
         values = student_ratings[student_id]
         value = values.inject{|sum, el| sum.to_f + el.to_f}.to_f / values.size
 
+        value = value.round(2)
+
         report_data['student_records'][student_id]["ratings"][template.id] = value
       end
-
     end
 
     render json: report_data
