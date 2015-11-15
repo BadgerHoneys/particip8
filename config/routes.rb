@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   post 'email_verification/generate_token' => 'email_verification#generate_token'
   post 'email_verification/verify_token' => 'email_verification#verify_token'
 
+  post 'password_reset/generate_token' => 'password_reset#generate_token'
+  post 'password_reset/verify_token' => 'password_reset#verify_token'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
