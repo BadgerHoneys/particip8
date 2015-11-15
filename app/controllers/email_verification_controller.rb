@@ -17,7 +17,7 @@ class EmailVerificationController < ApplicationController
   	verification_key = "Email_Verification_" + verification_token
   	$redis.set(verification_key, email.downcase)
 
-  	render json: verification_token
+  	render json: {token: verification_token}
   end
 
 
@@ -30,7 +30,7 @@ class EmailVerificationController < ApplicationController
   	email = $redis.get(verification_key)
 
   	if email
-  		render json: email
+  		render json: {email: email}
   	else
   		render json: params, status: :unauthorized
   	end
