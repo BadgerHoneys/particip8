@@ -17,20 +17,23 @@ class EmailVerificationController < ApplicationController
   	verification_key = "Email_Verification_" + verification_token
   	$redis.set(verification_key, email.downcase)
 
-  	render json: verification_token, status: 200
+  	render json: verification_token
   end
 
 
-  # GET /email_verification/verify_token
+  # POST /email_verification/verify_token
   def verify_token
-  	#token provided in params
-  	binding.pry
-  	#lookup in redis using token
+  	
+  	verification_token = params[:token]
+  	verification_key = "Email_Verification_" + verification_token
 
-  	#response of 200 with email if successful lookup
+  	email = $redis.get(verification_key)
 
-  	#response of <redirect> if lookup not successful
-
+  	if email
+  		render json: email
+  	else
+  		render json: params, status: :unauthorized
+  	end
   end
 end
 

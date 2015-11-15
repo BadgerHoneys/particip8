@@ -31,8 +31,8 @@ Rails.application.routes.draw do
   resources :sessions, except: [:new, :edit]
 
   post 'email_verification/generate_token' => 'email_verification#generate_token'
-  get 'email_verification/verify_token' => 'email_verification#verify_token'
-  
+  post 'email_verification/verify_token' => 'email_verification#verify_token'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
