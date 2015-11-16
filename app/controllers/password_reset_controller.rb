@@ -7,6 +7,10 @@ class PasswordResetController < ApplicationController
   def generate_token
   	email = params[:email]
 
+    #TODO: Implement an email lookup on Users (and index Users.email as well)
+    #Render a tailored response in the event that the email does not exist
+    #Only proceed with verification_token logic if the email is present in `Users`.
+
   	#generate a verification token using urlsafe_base64,
   	#ensuring uniqueness amongst email_verification keys
   	verification_token = loop do
@@ -27,7 +31,7 @@ class PasswordResetController < ApplicationController
   def verify_token
   	
   	verification_token = params[:token]
-  	verification_key = "Password_Reset" + verification_token
+  	verification_key = "Password_Reset_" + verification_token
 
   	email = $redis.get(verification_key)
 
