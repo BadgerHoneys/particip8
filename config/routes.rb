@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   post 'email_verification/generate_token' => 'email_verification#generate_token'
   post 'email_verification/verify_token' => 'email_verification#verify_token'
 
+  get 'school_admin/schools' => 'school_admins#schools'
+  post 'school_admin/create' => 'school_admins#create'
+
   post 'password_reset/generate_token' => 'password_reset#generate_token'
   post 'password_reset/verify_token' => 'password_reset#verify_token'
 
