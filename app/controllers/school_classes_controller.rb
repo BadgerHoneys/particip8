@@ -163,6 +163,6 @@ class SchoolClassesController < ApplicationController
     end
 
     def school_class_params
-      params.require(:school_class).permit(:school_id, :teacher_id, :name, :start_time, :end_time)
+      params.require(:school_class).permit(:school_id, :teacher_id, :name, :start_time, :end_time, :days)
     end
 end

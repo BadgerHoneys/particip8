@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107215227) do
+ActiveRecord::Schema.define(version: 20151130220403) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "current_day_id", limit: 4
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20151107215227) do
     t.time     "end_time"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "days",       limit: 255
   end
 
   add_index "school_classes", ["school_id"], name: "index_school_classes_on_school_id", using: :btree
