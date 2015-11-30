@@ -3,43 +3,45 @@ class PasswordResetController < ApplicationController
   #do not invoke the authenticate_request method before session creation.
   skip_before_action :authenticate_request
 
-  # POST /password_reset/generate_token
-  def generate_token
-  	email = params[:email]
+  def create
+    #find the user by email
+    user = User.find_by(email: params[:email])
+    if user
+      user.generate_password_reset_token!
 
-    #TODO: Implement an email lookup on Users (and index Users.email as well)
-    #Render a tailored response in the event that the email does not exist
-    #Only proceed with verification_token logic if the email is present in `Users`.
+      #TODO: deliver email to user
 
-  	#generate a verification token using urlsafe_base64,
-  	#ensuring uniqueness amongst email_verification keys
-  	verification_token = loop do
-  		token = SecureRandom.urlsafe_base64
-  		break token unless $redis.exists("Password_Reset_" + token)
-  	end
-
-  	verification_key = "Password_Reset_" + verification_token
-  	$redis.set(verification_key, email.downcase)
-
-    #TODO: Distribute email with link
-
-  	render json: {token: verification_token}
+      #replace this in the future
+      render json: {password_reset_token: user.password_reset_token}
+    else
+      render json: params, status: :unauthorized
+    end
   end
 
+  def show
+    @user = User.find_by(password_reset_token: params[:id])
+    render :json => @user
+  end
 
-  # POST /password_reset/verify_token
-  def verify_token
-  	
-  	verification_token = params[:token]
-  	verification_key = "Password_Reset_" + verification_token
+  def update
+    #find the user by their password_reset_token
+    @user = User.find_by(password_reset_token: params[:id])
 
-  	email = $redis.get(verification_key)
+    if @user && params[:user][:password].eql?(params[:user][:password_confirmation])
+      if @user.update_attributes(user_params)
+        
+        @user.encrypt_password
 
-  	if email
-  		render json: {email: email}
-  	else
-  		render json: params, status: :unauthorized
-  	end
+        @user.update_attributes({:password_reset_token => nil})
+        render :nothing => true
+      end
+    end   
+  end
+
+  def user_params
+    #TODO: replace this to require user
+    #params.require(:user).permit(:password, :password_confirmation)
+    params.require(:user).permit(:password)
   end
 end
 
