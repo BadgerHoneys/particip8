@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   resources :attendances, except: [:new, :edit]
   resources :current_days, except: [:new, :edit]
   resources :ratings, except: [:new, :edit]
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :evaluation_templates, except: [:new, :edit]
   resources :rating_types, except: [:new, :edit]
+
+  resources :password_reset, only: [:show, :create, :update]
 
   get 'school_classes/available' => 'school_classes#available'
   resources :school_classes, except: [:new, :edit] do
@@ -32,9 +35,6 @@ Rails.application.routes.draw do
 
   post 'email_verification/generate_token' => 'email_verification#generate_token'
   post 'email_verification/verify_token' => 'email_verification#verify_token'
-
-  post 'password_reset/generate_token' => 'password_reset#generate_token'
-  post 'password_reset/verify_token' => 'password_reset#verify_token'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
