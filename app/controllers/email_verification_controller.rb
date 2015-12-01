@@ -1,39 +1,48 @@
 class EmailVerificationController < ApplicationController
 
-  #do not invoke the authenticate_request method before session creation.
+  #do not invoke the authenticate_request method before email_verification methods.
   skip_before_action :authenticate_request
 
-  # POST /email_verification/generate_token
-  def generate_token
-  	email = params[:email]
+  def create
+    #create a new user
+    user = Admin.new(email: params[:email])
+    user.generate_email_verification_token!
+    user.save
 
-  	#generate a verification token using urlsafe_base64,
-  	#ensuring uniqueness amongst email_verification keys
-  	verification_token = loop do
-  		token = SecureRandom.urlsafe_base64
-  		break token unless $redis.exists("Email_Verification_" + token)
-  	end
+    #TODO: deliver email to user
 
-  	verification_key = "Email_Verification_" + verification_token
-  	$redis.set(verification_key, email.downcase)
+    #replace this in the future
+    render json: {email_verification_token: user.email_verification_token}
+  end
 
-  	render json: {token: verification_token}
+  def show
+    @user = User.find_by(email_verification_token: params[:id])
+    render :json => @user
   end
 
 
-  # POST /email_verification/verify_token
-  def verify_token
-  	
-  	verification_token = params[:token]
-  	verification_key = "Email_Verification_" + verification_token
 
-  	email = $redis.get(verification_key)
-
-  	if email
-  		render json: {email: email}
-  	else
-  		render json: params, status: :unauthorized
-  	end
-  end
 end
 
+=begin
+  def update
+    #find the user by their password_reset_token
+    @user = User.find_by(password_reset_token: params[:id])
+
+    if @user && params[:user][:password].eql?(params[:user][:password_confirmation])
+      if @user.update_attributes(user_params)
+        
+        @user.encrypt_password
+
+        @user.update_attributes({:password_reset_token => nil})
+        render :nothing => true
+      end
+    end   
+  end
+
+  def user_params
+    #TODO: replace this to require user
+    #params.require(:user).permit(:password, :password_confirmation)
+    params.require(:user).permit(:password)
+  end
+=end

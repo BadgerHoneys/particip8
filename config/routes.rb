@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :rating_types, except: [:new, :edit]
 
   resources :password_reset, only: [:show, :create, :update]
+  resources :email_verification, only: [:show, :create, :update]  
 
   get 'school_classes/available' => 'school_classes#available'
   resources :school_classes, except: [:new, :edit] do
@@ -32,9 +33,6 @@ Rails.application.routes.draw do
   resources :users, except: [:new, :edit]
 
   resources :sessions, except: [:new, :edit]
-
-  post 'email_verification/generate_token' => 'email_verification#generate_token'
-  post 'email_verification/verify_token' => 'email_verification#verify_token'
 
   get 'school_admin/schools' => 'school_admins#schools'
   post 'school_admin/create' => 'school_admins#create'

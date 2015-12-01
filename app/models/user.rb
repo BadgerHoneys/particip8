@@ -21,6 +21,11 @@ class User < ActiveRecord::Base
     update_attribute(:password_reset_token, SecureRandom.urlsafe_base64(48))
   end
 
+  def generate_email_verification_token!
+    #generate email verification token here
+    update_attribute(:email_verification_token, SecureRandom.urlsafe_base64(48))
+  end
+
 	def generate_auth_token
 	  payload = { user_id: self.id}
 	  AuthToken.encode(payload)
