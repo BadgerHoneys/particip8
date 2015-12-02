@@ -4,24 +4,24 @@ class EmailVerificationController < ApplicationController
   skip_before_action :authenticate_request
 
   def create
-    #create a new user
-    user = Admin.new(email: params[:email])
-    user.generate_email_verification_token!
-    user.save
+    @admin = Admin.new(email: params[:email])
+    if @admin.save
+      @admin.generate_email_verification_token!
 
-    #TODO: deliver email to user
-
-    #replace this in the future
-    render json: {email_verification_token: user.email_verification_token}
+      #create the district
+      district = District.new(name: params[:district_name])
+      district.admin = @admin
+      
+      if district.save
+        render json: {email_verification_token: @admin.email_verification_token}
+      end
+    end
   end
 
   def show
     @user = User.find_by(email_verification_token: params[:id])
     render :json => @user
   end
-
-
-
 end
 
 =begin

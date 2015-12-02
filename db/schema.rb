@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130230035) do
+ActiveRecord::Schema.define(version: 20151202004711) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "current_day_id", limit: 4
@@ -129,8 +129,10 @@ ActiveRecord::Schema.define(version: 20151130230035) do
     t.string   "salt",                     limit: 255
     t.string   "password_reset_token",     limit: 255
     t.string   "email_verification_token", limit: 255
+    t.integer  "district_id",              limit: 4
   end
 
+  add_index "users", ["district_id"], name: "index_users_on_district_id", using: :btree
   add_index "users", ["school_id"], name: "index_users_on_school_id", using: :btree
 
   add_foreign_key "attendances", "current_days"

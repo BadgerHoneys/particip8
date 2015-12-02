@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   before_create :encrypt_password
   
+  validates_uniqueness_of :email
   
   has_many :attendances, through: :current_days
 
