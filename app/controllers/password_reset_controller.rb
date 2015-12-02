@@ -25,7 +25,7 @@ class PasswordResetController < ApplicationController
 
   def update
     #find the user by their password_reset_token
-    @user = User.find_by(password_reset_token: params[:id])
+    @user = User.find(params[:id])
 
     if @user && params[:user][:password].eql?(params[:user][:password_confirmation])
       if @user.update_attributes(user_params)
