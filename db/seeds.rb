@@ -19,3 +19,4 @@ load 'db/seeds/evaluation_templates.rb' #depends on school_class and rating_type
 load 'db/seeds/evaluations.rb' #depends on evaluations template
 load 'db/seeds/ratings.rb' #depends on evaluation and student
 load 'db/seeds/classes_students.rb'
+load 'db/seeds/admins.rb'

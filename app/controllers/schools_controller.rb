@@ -1,10 +1,26 @@
 class SchoolsController < ApplicationController
   before_action :set_school, only: [:show, :update, :destroy]
+  before_action :set_school_id, only: [:teachers]
 
   # GET /schools
   # GET /schools.json
   def index
-    @schools = School.all
+    @school_list = @current_user.district.schools
+
+    # binding.pry
+
+    @schools = []
+
+    @school_list.each do |school|
+      this_school = {}
+      this_school['name'] = school.name
+      this_school['teachers'] = school.teachers.length
+      this_school['students'] = school.students.length
+      this_school['school_classes'] = school.school_classes.length
+      this_school['id'] = school.id
+
+      @schools.append(this_school)
+    end
 
     render json: @schools
   end
@@ -12,7 +28,13 @@ class SchoolsController < ApplicationController
   # GET /schools/1
   # GET /schools/1.json
   def show
-    render json: @school
+    render json: @school, include: [:teachers, :school_classes, :students]
+  end
+
+  # GET /schools/1/teachers
+  # GET /schools/1/teachers.json
+  def teachers
+    render json: @school.teachers
   end
 
   # POST /schools
@@ -51,6 +73,10 @@ class SchoolsController < ApplicationController
 
     def set_school
       @school = School.find(params[:id])
+    end
+
+    def set_school_id
+      @school = School.find(params[:school_id])
     end
 
     def school_params
