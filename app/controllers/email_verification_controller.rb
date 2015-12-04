@@ -4,19 +4,26 @@ class EmailVerificationController < ApplicationController
   skip_before_action :authenticate_request
 
   def create
-    @admin = Admin.new(email: params[:email])
-    if @admin.save
-      @admin.generate_email_verification_token!
 
-      #create the district
+    #create a user with expected params 
+    @user = User.new(new_user_params)
+
+    if @user.save
+      @user.generate_email_verification_token!
+    end
+
+    #if the user is an admin, create an associated district as well
+    if params[:type].eql("admin")
       district = District.new(name: params[:district_name])
       district.admin = @admin
-      
       if district.save
         render json: {email_verification_token: @admin.email_verification_token}
       end
+    else
+      render json: {email_verification_token: @admin.email_verification_token}
     end
   end
+
 
   def show
     @user = User.find_by(email_verification_token: params[:id])
@@ -37,7 +44,13 @@ class EmailVerificationController < ApplicationController
     end
   end
 
+  private
+
   def user_params
     params.require(:user).permit(:password, :first_name, :last_name)
+  end
+
+  def new_user_params
+    params.require(:user).permit(:type, :email, :first_name, :last_name, :school_id)
   end
 end
