@@ -27,8 +27,13 @@ Rails.application.routes.draw do
   resources :teachers, except: [:new, :edit] do
     get 'classes'
   end
+  
   resources :students, except: [:new, :edit]
-  resources :schools, except: [:new, :edit]
+
+  resources :schools, except: [:new, :edit] do
+    get 'teachers'
+  end
+
   resources :districts, except: [:new, :edit]
   resources :users, except: [:new, :edit]
 
