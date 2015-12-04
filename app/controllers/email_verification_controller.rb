@@ -13,14 +13,14 @@ class EmailVerificationController < ApplicationController
     end
 
     #if the user is an admin, create an associated district as well
-    if params[:type].eql("admin")
+    if params[:user][:type] == "Admin"
       district = District.new(name: params[:district_name])
-      district.admin = @admin
+      district.admin = @user
       if district.save
-        render json: {email_verification_token: @admin.email_verification_token}
+        render json: {email_verification_token: @user.email_verification_token}
       end
-    else
-      render json: {email_verification_token: @admin.email_verification_token}
+    elsif params[:user][:type] == "Teacher"
+      render json: {email_verification_token: @user.email_verification_token}
     end
   end
 
