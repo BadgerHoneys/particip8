@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
     #TODO: redo this authentication method
     if user && user.match_password(password)
-      render json: { auth_token: user.generate_auth_token }
+      render json: { auth_token: user.generate_auth_token, type: user.type }
     else
       #401 status will indicate lack of authentication
       render :nothing => true, status: 401
